@@ -1,0 +1,23 @@
+ES modules we don't have __dirname so , we create it manually
+for that import {fileURLToPath } from "url";
+
+import.meta.url → Gets the full file URL
+When using ES Modules (import), the variable import.meta.url gives the file URL.
+Example output:
+file:///C:/Users/adars/OneDrive/Desktop/BACK-END/Node_With_SQL/MINI-PJCT/index.js
+
+let __filename = fileURLToPath(import.meta.url);
+this function converts URL TO filepath
+example output: C:\Users\adars\OneDrive\Desktop\BACK-END\Node_With_SQL\MINI-PJCT\index.js
+
+
+path.dirname(__filename) → Extracts the folder path
+const __dirname = path.dirname(__filename);
+example output: C:\Users\adars\OneDrive\Desktop\BACK-END\Node_With_SQL\MINI-PJCT
+
+import dotenv from 'dotenv';
+
+Used to load environment variables from a .env file into process.env.
+
+
+

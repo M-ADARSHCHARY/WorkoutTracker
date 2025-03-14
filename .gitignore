@@ -1,0 +1,3 @@
+node_modules/  #/ is for specifying folder
+.env
+package-lock.json
