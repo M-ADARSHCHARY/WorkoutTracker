@@ -10,5 +10,13 @@
 -- TRUNCATE TABLE workoutData;
 -- ALTER TABLE workoutData ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY;
 --ALTER TABLE workoutData ADD COLUMN weight INT NOT NULL DEFAULT 0;
-SELECT * FROM workoutData;
+-- SELECT * FROM workoutData;
+
+-- CREATE TABLE users (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(255) UNIQUE NOT NULL,
+--     email VARCHAR(255) UNIQUE NOT NULL,
+--     password VARCHAR(255) NOT NULL
+-- );
+
 
