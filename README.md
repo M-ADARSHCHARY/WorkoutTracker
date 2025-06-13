@@ -28,6 +28,18 @@
 - **JWT for Authentication**
 - **SQL Database**
 
-## 📁 Project Structure (Frontend)
+## INSTALLATION GUIDE:
+# 1. Clone the repository
+git clone https://github.com/M-ADARSHCHARY/WorkoutTracker.git
+cd WorkoutTracker
+
+
+# 2. Install backend dependencies
+cd server
+npm install 
+
+# 3. Install frontend dependencies
+cd client
+npm install
 
 
