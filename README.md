@@ -28,7 +28,7 @@
 - **JWT for Authentication**
 - **SQL Database**
 
-## INSTALLATION GUIDE:
+## INSTALLATION :
 # 1. Clone the repository
 git clone https://github.com/M-ADARSHCHARY/WorkoutTracker.git
 cd WorkoutTracker
