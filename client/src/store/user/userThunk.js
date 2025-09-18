@@ -10,7 +10,7 @@ export const checkAuthThunk = createAsyncThunk('auth/checkAuth',
       // console.log("CheckAuth:",response?.data?.userProfile) 
       return response?.data?.userProfile; // assuming backend returns user info in `user`
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      // toast.error("Loggin AGAIN");
       return rejectWithValue(error.response?.data?.message || 'Failed to Authenticate');
     }
   }

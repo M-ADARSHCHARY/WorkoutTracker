@@ -2,7 +2,7 @@ import axios from "axios";
 
 // re-usable instance
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080/wt", //  Backend URL
+  baseURL: import.meta.env.VITE_BACKEND_URL, //  Backend URL
   headers: {
     "Content-Type": "application/json",
   },

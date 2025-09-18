@@ -17,7 +17,7 @@ const initialState = {
   recentWorkouts: [],
   exercisesDid: [],
   workoutHistory: [],
-  
+  totalPages: 1,
 };
 
 // Slice
@@ -91,6 +91,7 @@ const workoutSlice = createSlice({
     builder.addCase(workoutHistoryThunk.fulfilled, (state, action) => {
       // console.log("action payload: ",action?.payload?.workoutHistory)
       state.workoutHistory = action.payload?.workoutHistory;
+      state.totalPages = action.payload?.totalPages;
 
       // Pr's
 

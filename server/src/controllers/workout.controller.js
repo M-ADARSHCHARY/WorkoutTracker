@@ -43,10 +43,21 @@ export const getData = async (req, res) => {
 
 export const getHistory = async (req, res) => {
   const { _id: userId } = req.user;
-  let allData = "SELECT * FROM workoutData WHERE user_id = ? ORDER BY workout_date DESC";
+ 
+  const limit = 10;
+  const page = req.query.page || 1;
+  console.log(req.query.page)
+  const offset = (page - 1) * limit;
+  let allData = `SELECT * FROM workoutData WHERE user_id = ? ORDER BY workout_date DESC LIMIT ${limit} OFFSET ${offset}`
   try {
     let [rows] = await connection.execute(allData, [userId]);
 
+    // Count total records for pagination
+    let countQuery = "SELECT COUNT(*) AS total FROM workoutData WHERE user_id = ?";
+    const [countResult] = await connection.execute(countQuery, [userId]);
+    const totalCount = countResult[0]?.total || 0;
+    let totalPages = Math.ceil(totalCount / limit);
+    
     if (rows.length == 0) {
       return res.status(200).json({
         success: true,
@@ -56,6 +67,9 @@ export const getHistory = async (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
+        message: "SuccessFully fetched.!",
+        currentPage: page,
+        totalPages: totalPages, 
         workoutHistory: rows,
       });
     }

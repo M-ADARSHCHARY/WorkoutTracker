@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
-const PORT = 8080;
+const PORT = 5050;
 dotenv.config(); //loads the variables from .env file into process.env
 
 
@@ -16,7 +16,7 @@ app.use(cookieParser()); // Enables cookie handling
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Front-End react URL
+    origin: process.env.CLIENT_URL, // Front-End react URL
     credentials: true, // sending cookies
   })
 );

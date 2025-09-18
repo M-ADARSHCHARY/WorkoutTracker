@@ -47,10 +47,10 @@ export const getChartDataThunk = createAsyncThunk('/getData/:id',
 
 
 export const workoutHistoryThunk = createAsyncThunk('/History',
-  async (_, { rejectWithValue }) => {
+  async (page, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/history`); 
-      console.log(response?.data?.workoutHistory)
+      const response = await axiosInstance.get(`/history?page=${page}`); 
+      console.log("workoutHistoryThunk response:",response?.data)
       return response?.data;
     } catch (error) {
       toast.error(error.response?.data?.message);
