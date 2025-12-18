@@ -7,7 +7,7 @@ export const checkAuthThunk = createAsyncThunk('auth/checkAuth',
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get('/auth/check-auth'); // backend endpoint
-      // console.log("CheckAuth:",response?.data?.userProfile) 
+      console.log("CheckAuth:",response?.data?.userProfile) 
       return response?.data?.userProfile; // assuming backend returns user info in `user`
     } catch (error) {
       // toast.error("Loggin AGAIN");
@@ -17,10 +17,10 @@ export const checkAuthThunk = createAsyncThunk('auth/checkAuth',
 );
 
 
-export const userLogInThunk = createAsyncThunk('auth/login',async ({username,password},{rejectWithValue})=>{
+export const userLogInThunk = createAsyncThunk('auth/login',async ({userName,password},{rejectWithValue})=>{
     try{
-        const response = await axiosInstance.post('/auth/login',{
-            username,
+        const response = await axiosInstance.post('/auth/log-in',{
+            userName,
             password
         });
         toast.success(response.data?.message);
@@ -34,15 +34,18 @@ export const userLogInThunk = createAsyncThunk('auth/login',async ({username,pas
 })
 
 
-export const userSignUpThunk =  createAsyncThunk('auth/signup',async ({username,email,password},{rejectWithValue}) => {
+export const userSignUpThunk =  createAsyncThunk('auth/signup',async ({userName,email,password},{rejectWithValue}) => {
      try{
-        const response = await axiosInstance.post('/auth/signup',{username,email,password});
+        const response = await axiosInstance.post('/auth/sign-up',{userName,email,password});
+
         toast.success(response?.data?.message);
+
         console.log("Successfully registered.");
 
         return response?.data?.userProfile;
      }catch(error){
         const errMsg = error.response?.data?.message;
+        toast.error(errMsg);
         console.log("Error in userSignUpThunk: ",errMsg);
         return rejectWithValue(errMsg);
      }
@@ -52,7 +55,7 @@ export const userSignUpThunk =  createAsyncThunk('auth/signup',async ({username,
 export const userLogOutThunk =  createAsyncThunk('auth/logout',async (_,{rejectWithValue}) => {
      try{
 
-        const response = await axiosInstance.post('/auth/logout');
+        const response = await axiosInstance.post('/auth/log-out');
         toast.success(response?.data?.message);
         console.log("Successfully Logged Out..!");
      }catch(error){

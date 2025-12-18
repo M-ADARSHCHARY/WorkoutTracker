@@ -43,8 +43,15 @@ const WorkoutHistory = () => {
   }
 
   const handleEditWorkoutRow = (e,item)=>{
-    setEditingId(item._id)
-    setEditableData(item)
+    setEditingId(item.id)
+    setEditableData({
+      workoutName: item?.workout_name,
+      exerciseName: item?.exercise_name,
+      sets: item?.sets,
+      reps: item?.reps,
+      maxWeight: item?.weight,
+      workoutId: item?.id,
+    })
   }
 
   const handleSaveData = async ()=> {
@@ -54,8 +61,8 @@ const WorkoutHistory = () => {
     setEditingId(null);
   }
 
-  const handleDelete = (_id) => {
-     dispatch(deleteSingleRowThunk(_id));
+  const handleDelete = (id) => {
+     dispatch(deleteSingleRowThunk(id));
   }
 
   const handleDeleteAllData = ()=>{
@@ -137,24 +144,24 @@ const WorkoutHistory = () => {
             </thead>
             <tbody className="divide-y divide-gray-700">
               {( workoutHistory?.length > 0) ? workoutHistory.map((item) => (
-                <tr key={item._id} className={`hover:bg-gray-700/50 transition`}>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="Workoutname" value = {editingId !== item._id ? item.Workoutname : editableData.Workoutname } className={`${item._id} bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item._id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item._id}/></td>
+                <tr key={item.id} className={`hover:bg-gray-700/50 transition`}>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="workoutName" value = {editingId !== item.id ? item.workout_name : editableData.workout_name } className={`${item.id} bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><span name="workout_date" className="bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis">{new Date(item.workout_date).toLocaleDateString()}</span></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="Exercise_name" value = {editingId !== item._id ? item.Exercise_name:editableData.Exercise_name} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item._id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item._id}/></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="t_sets" value = {editingId !== item._id ? item.t_sets:editableData.t_sets} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item._id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item._id}/></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="reps" value = {editingId !== item._id ? item.reps:editableData.reps} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item._id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item._id}/></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="weight" value = {editingId !== item._id ? item.weight:editableData.weight} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item._id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item._id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="exerciseName" value = {editingId !== item.id ? item.exercise_name:editableData.exercise_name} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="sets" value = {editingId !== item.id ? item.sets:editableData.sets} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="reps" value = {editingId !== item.id ? item.reps:editableData.reps} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="maxWeight" value = {editingId !== item.id ? item.weight:editableData.weight} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap">
                     <div className="flex space-x-2">
                       {
-                        (editingId !== item._id) ? (<button className="text-gray-400 hover:text-white" onClick={(e)=>{setIsEditing(!isEditing);handleEditWorkoutRow(e,item)}}>
+                        (editingId !== item.id) ? (<button className="text-gray-400 hover:text-white" onClick={(e)=>{setIsEditing(!isEditing);handleEditWorkoutRow(e,item)}}>
                              <FaEdit />
                       </button>):(
                         <>
                         <button onClick={()=>{setEditableData(null);setEditingId(null)}}className="rounded-md bg-blue-400 w-fit h-fit p-2 mr-2">cancel</button>
                         <button className="bg-green-500 h-fit w-fit p-2 rounded-md mr-2 text-black  flex items-center gap-0.4"onClick={handleSaveData}>  <Save className="w-4 h-4 mr-1" /> save</button></>)
                       }
-                      <button className="text-red-400 hover:text-red-300" onClick={()=>{handleDelete(item._id)}}>
+                      <button className="text-red-400 hover:text-red-300" onClick={()=>{handleDelete(item.id)}}>
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>

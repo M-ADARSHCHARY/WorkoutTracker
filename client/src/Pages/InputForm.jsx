@@ -3,12 +3,12 @@ import { useDispatch , useSelector } from 'react-redux'
 import { workoutLogThunk } from '../store/workout/workoutThunk'
 import { recentWorkoutsUpdate } from '../store/workout/workoutSlice'
 const initialData = {
-    workoutname: "",
-    date: "",
-    exercisename: "",
+    workoutName: "",
+    workoutDate: "",
+    exerciseName: "",
     sets: "",
     reps: "",
-    max_weight: "",
+    maxWeight: "",
 }
 
 const InputForm = () => {
@@ -37,8 +37,8 @@ const InputForm = () => {
           <input
             onChange={handleChange}
             type="text"
-            name="workoutname"
-            value={workoutData.workoutname}
+            name="workoutName"
+            value={workoutData.workoutName}
             className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
             placeholder="e.g. Push Day"
           />
@@ -48,8 +48,8 @@ const InputForm = () => {
           <input
             onChange={handleChange}
             type="date"
-            name="date"
-            value={workoutData.date}
+            name="workoutDate"
+            value={workoutData.workoutDate}
             className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
           />
         </div>
@@ -58,8 +58,8 @@ const InputForm = () => {
           <input
             onChange={handleChange}
             type="text"
-            name="exercisename"
-            value={workoutData.exercisename}
+            name="exerciseName"
+            value={workoutData.exerciseName}
             className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
             placeholder="e.g. Bench Press"
           />
@@ -94,8 +94,8 @@ const InputForm = () => {
             <input
               onChange={handleChange}
               type="number"
-              name="max_weight"
-              value={workoutData.max_weight}
+              name="maxWeight"
+              value={workoutData.maxWeight}
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
               min="0"
               placeholder="e.g. 80"

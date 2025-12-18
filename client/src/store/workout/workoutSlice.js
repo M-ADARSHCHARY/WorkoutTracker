@@ -103,12 +103,12 @@ const workoutSlice = createSlice({
       const updatedRowData = action?.payload;
       let oldData = state.workoutHistory;
       oldData.forEach((data) => {
-        if (data._id === updatedRowData._id) {
-          data.Workoutname = updatedRowData.Workoutname;
-          data.Exercise_name = updatedRowData.Exercise_name;
-          data.t_sets = updatedRowData.t_sets;
+        if (data.id === updatedRowData.workoutId) {
+          data.workout_name = updatedRowData.workoutName;
+          data.exercise_name = updatedRowData.exerciseName;
+          data.sets = updatedRowData.sets;
           data.reps = updatedRowData.reps;
-          data.weight = updatedRowData.weight;
+          data.weight = updatedRowData.maxWeight;
         }
       });
       state.workoutHistory = oldData;
@@ -117,7 +117,7 @@ const workoutSlice = createSlice({
     builder.addCase(deleteSingleRowThunk.fulfilled, (state, action) => {
       let historyCopy = state.workoutHistory;
       state.workoutHistory = historyCopy.filter(
-        (data) => data._id !== action?.payload
+        (data) => data.id !== action?.payload
       );
     });
 

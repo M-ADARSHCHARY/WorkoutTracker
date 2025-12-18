@@ -24,8 +24,14 @@ app.use(
 
 
 app.use("/wt",workoutRoutes);
-app.use("/wt/auth",authRoutes);  
+app.use("/wt/auth",authRoutes); 
 
+app.all("*"),(req,res, next)=>{
+   next(new AppError(`Route not found: ${req.originalUrl}`, 404));
+}
+
+import errorMiddleware from "./middlewares/error.middleware.js";
+app.use(errorMiddleware);
 
 app.listen(PORT,()=>{
     console.log("Server Listening at port:",PORT);

@@ -21,12 +21,12 @@ router.post("/insert",authenticateUser,insertData);
 // PATCH (This req implemented with fetch)
 router.patch("/edit",authenticateUser,editData);
 // DELETE
-router.delete("/delete/:_id",authenticateUser,deleteSingleRow)
+router.delete("/delete/:workoutId",authenticateUser,deleteSingleRow)
 
 //DELETEALL
 router.delete("/deleteAll",authenticateUser,deleteAll)
 
 //getDataForChat
-router.get("/getData/:Exercise", authenticateUser,getDataForChart)
+router.get("/getData/:exerciseName", authenticateUser,getDataForChart)
 
 export default router;

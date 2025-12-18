@@ -46,8 +46,8 @@ const WorkoutChart = () => {
             Select an exercise
           </option>
           {exercisesDid.map((exercise, idx) => (
-            <option key={idx} value={exercise.Exercise_name}>
-              {exercise.Exercise_name}
+            <option key={idx} value={exercise.exercise_name}>
+              {exercise.exercise_name}
             </option>
           ))}
         </select>

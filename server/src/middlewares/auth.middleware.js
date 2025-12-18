@@ -9,6 +9,7 @@ const authenticateUser = (req, res, next) => {
 
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
+
         if(verified){
             // console.log("verified: ",verified)
             req.user = {_id:verified._id}; // Attach user Id to request

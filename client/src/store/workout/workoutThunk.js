@@ -32,7 +32,7 @@ export const getDataThunk = createAsyncThunk('/getdata',
 );
 
 
-export const getChartDataThunk = createAsyncThunk('/getData/:id',
+export const getChartDataThunk = createAsyncThunk('/getData/:workoutId',
   async (chartExercise, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(`/getData/${chartExercise}`); 
@@ -61,21 +61,14 @@ export const workoutHistoryThunk = createAsyncThunk('/History',
 
 
 export const editDataThunk = createAsyncThunk('/editData',
-  async ({
-           Workoutname,
-           Exercise_name,
-           reps,
-           t_sets,
-           weight,
-           _id
-          }, { rejectWithValue }) => {
+  async (editData, { rejectWithValue }) => {
     try {
-      let data = {Workoutname,Exercise_name,reps,t_sets,weight,_id};
-      const response = await axiosInstance.patch(`/edit`,data); 
+     console.log("editDataThunk called with:",editData);
+      const response = await axiosInstance.patch(`/edit`,editData); 
       //console.log("successfully edited: ",response?.data);
       if(response?.data?.success){
         toast.success(response?.data?.message)
-        return data;
+        return editData;
       }
     } catch (error) {
       toast.error(error.response?.data?.message);

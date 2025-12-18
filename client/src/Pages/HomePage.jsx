@@ -50,11 +50,11 @@ const HomePage = () => {
             <ul>
               {recentWorkouts.map((workout) => (
                 <li
-                  key={workout._id}
+                  key={workout.id}
                   className="flex justify-between items-center bg-gray-800 px-4 py-3 rounded-lg border border-gray-700 mb-3 hover:bg-gray-700 transition"
                 >
                   <span className="text-gray-200 font-medium truncate max-w-[60%]">
-                    {workout.Workoutname || workout.workoutname}
+                    {workout.workout_name}
                   </span>
                   <span className="text-emerald-300 text-sm font-mono">
                     {new Date(workout.workout_date).toLocaleDateString()}

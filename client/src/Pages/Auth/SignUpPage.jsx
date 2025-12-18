@@ -8,7 +8,7 @@ const SignUpPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData,setFormData] = useState({
-    username:"",
+    userName:"",
     email:"",
     password:"",
   })
@@ -36,7 +36,7 @@ const SignUpPage = () => {
         <form className="mt-4" onSubmit = {handleSignUp}>
             <div>
                 <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" name="username" className="w-full mt-1 p-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Your Name" required onChange = {handleChange}/>
+                <input type="text" name="userName" className="w-full mt-1 p-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Your Name" required onChange = {handleChange}/>
             </div>
             <div className="mt-3">
                 <label className="block text-sm font-medium text-gray-700">Email</label>

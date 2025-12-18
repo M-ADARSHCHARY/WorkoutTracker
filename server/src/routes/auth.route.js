@@ -3,11 +3,11 @@ import {signUp,logIn,logOut , checkAuth} from '../controllers/auth.controller.js
 import authenticateUser from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
-router.post("/signup",signUp);
+router.post("/sign-up",signUp);
 
-router.post("/login",logIn);
+router.post("/log-in",logIn);
 
-router.post("/logout", authenticateUser,logOut);
+router.post("/log-out", authenticateUser,logOut);
 
 router.get("/check-auth",authenticateUser,checkAuth);
 
