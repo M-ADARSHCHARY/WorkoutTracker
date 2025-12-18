@@ -16,7 +16,7 @@ app.use(cookieParser()); // Enables cookie handling
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // Front-End react URL
+    origin:process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : "http://localhost:5173", // Front-End react URL
     credentials: true, // sending cookies
   })
 );

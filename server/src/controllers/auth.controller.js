@@ -83,7 +83,7 @@ export const logIn = asyncHandler(async (req, res) => {
         })
         .json({
           success: true,
-          userProfile,
+          userProfile:{password_hash:undefined,...userProfile},
           message: "Logged in successfully",
         });
     }
