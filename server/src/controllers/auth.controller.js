@@ -40,8 +40,8 @@ export const signUp = asyncHandler(async (req, res) => {
     .status(201)
     .cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? "None" : "Lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     })
     .json({
       success: true,
@@ -78,8 +78,8 @@ export const logIn = asyncHandler(async (req, res) => {
         .status(200)
         .cookie("token", token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? "None" : "Lax",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
         })
         .json({
           success: true,
@@ -92,7 +92,7 @@ export const logIn = asyncHandler(async (req, res) => {
 
 //logOut
 export const logOut = (req, res) => {
-  res.status(200).clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? "None" : "Lax" }).json({
+  res.status(200).clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax" }).json({
     success: true,
     message: "Logged Out successfully.!",
   });
