@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { changeKeys } from "../../utils/changeKeys";
 import {
   getDataThunk,
   workoutLogThunk,
@@ -8,6 +9,7 @@ import {
   deleteSingleRowThunk,
   deleteAllDataThunk,
 } from "./workoutThunk";
+import { all } from "axios";
 
 const initialState = {
   workoutData: [],
@@ -27,16 +29,19 @@ const workoutSlice = createSlice({
   reducers: {
     recentWorkoutsUpdate: (state, action) => {
       let addedWorkout = action.payload;
+      addedWorkout =  changeKeys(addedWorkout);
 
       // Clone existing recent workouts
       let recentWorkouts = current(state.recentWorkouts);
 
+      
       // Normalize existing workout dates
       let allWorkouts = recentWorkouts.map((w) => {
         const date = new Date(w.workout_date || w.date);
-        return { ...w, workout_date: date.toISOString() };
+        return { ...w, workout_date: date.toISOString().slice(0, 10) };
       });
-
+      
+      console.log("After Normalizing Dates: ",allWorkouts)
       // Normalize the new workout's date
       const date = new Date(addedWorkout.workout_date || addedWorkout.date);
       addedWorkout = { ...addedWorkout, workout_date: date.toISOString() };

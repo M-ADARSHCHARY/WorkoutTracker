@@ -22,8 +22,8 @@ const InputForm = () => {
   const handleWorkoutDataSubmit = async (e) => {
     e.preventDefault();
     await dispatch(workoutLogThunk(workoutData));
+    setWorkoutData(initialData) // Reset form after submission
     await dispatch(recentWorkoutsUpdate(workoutData))
-    setWorkoutData(initialData)
   }
 
   return (
