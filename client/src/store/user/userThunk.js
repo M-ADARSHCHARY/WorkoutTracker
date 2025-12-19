@@ -19,6 +19,7 @@ export const checkAuthThunk = createAsyncThunk('auth/checkAuth',
 
 export const userLogInThunk = createAsyncThunk('auth/login',async ({userName,password},{rejectWithValue})=>{
     try{
+       
         const response = await axiosInstance.post('/auth/log-in',{
             userName,
             password
@@ -28,6 +29,7 @@ export const userLogInThunk = createAsyncThunk('auth/login',async ({userName,pas
         return response.data?.userProfile; // goes to fullfilled state in extraReducers
     }catch(error){
         const errMsg = error.response?.data.message;
+        console.log("Error in userLogInThunk: ",error);
         toast.error(errMsg);
         return rejectWithValue(errMsg) // goes to rejected State in extraReducers
     }
