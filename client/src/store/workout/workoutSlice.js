@@ -92,11 +92,6 @@ const workoutSlice = createSlice({
       // console.log("action payload: ",action?.payload?.workoutHistory)
       state.workoutHistory = action.payload?.workoutHistory;
       state.totalPages = action.payload?.totalPages;
-
-      // Pr's
-
-      const workoutHistory = state.workoutHistory;
-
     });
 
     builder.addCase(editDataThunk.fulfilled, (state, action) => {

@@ -33,7 +33,8 @@ const WorkoutHistory = () => {
   const [editableData,setEditableData] = useState(null);
   
   useEffect(()=>{
-       dispatch(workoutHistoryThunk(page))
+    if(page < 1 || page > totalPages) return;
+          dispatch(workoutHistoryThunk(page))
   },[page])
 
   const handleChange = (e)=>
@@ -69,9 +70,13 @@ const WorkoutHistory = () => {
     dispatch(deleteAllDataThunk());
   }
 
-  const handleChevron = (e)=>{
-    e.preventDefault();
-    dispatch(workoutHistoryThunk(page)); // Get page data
+  const handlePrevPage = () => {
+    setPage(Math.max(page - 1, 1));
+  }
+
+  const handleNextPage = () => {
+    console.log("handleNextPage called: ",page);
+    setPage(Math.min(page + 1, totalPages));
   }
   
   return (
@@ -125,8 +130,8 @@ const WorkoutHistory = () => {
         {/* Workout Table for Desktop */}
         <div className="flex flex-col items-center justify-between mb-4">
           <div className="w-full flex justify-end mb-2 gap-2">
-             <button className="text-black bg-white rounded-full cursor-pointer" onClick={()=>{setPage(page - 1 < 1 ? 1 : page - 1); handleChevron(event)}} disabled={page === 1}><ChevronLeft size={24} /></button>
-            <button className="text-black bg-white rounded-full h-fit w-fit mx-2 cursor-pointer" onClick={()=>{setPage(page + 1 > totalPages ? totalPages : page + 1); handleChevron(event)}} disabled={page === totalPages}><ChevronRight size={24} /></button>
+             <button className="text-black bg-white rounded-full cursor-pointer" onClick={handlePrevPage} disabled={page === 1}><ChevronLeft size={24} /></button>
+            <button className="text-black bg-white rounded-full h-fit w-fit mx-2 cursor-pointer" onClick={handleNextPage} disabled={page === totalPages}><ChevronRight size={24} /></button>
           </div>
         <div className=" md:block overflow-x-auto bg-gray-800/50 rounded overflow-y-auto max-h-[58vh]">
           <table className="min-w-full divide-y divide-gray-700">

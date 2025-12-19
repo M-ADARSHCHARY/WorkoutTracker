@@ -49,6 +49,7 @@ export const getChartDataThunk = createAsyncThunk('/getData/:workoutId',
 export const workoutHistoryThunk = createAsyncThunk('/History',
   async (page, { rejectWithValue }) => {
     try {
+      console.log("Fetching workout history for page:", page);
       const response = await axiosInstance.get(`/history?page=${page}`); 
       console.log("workoutHistoryThunk response:",response?.data)
       return response?.data;
