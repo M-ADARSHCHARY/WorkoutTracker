@@ -102,7 +102,7 @@ const WorkoutHistory = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 gap-4 mb-8">
           {[
             {
               icon: <Dumbbell className="w-5 h-5" />,
@@ -127,13 +127,156 @@ const WorkoutHistory = () => {
           ))}
         </div>
 
-        {/* Workout Table for Desktop */}
-        <div className="flex flex-col items-center justify-between mb-4">
-          <div className="w-full flex justify-end mb-2 gap-2">
-             <button className="text-black bg-white rounded-full cursor-pointer" onClick={handlePrevPage} disabled={page === 1}><ChevronLeft size={24} /></button>
-            <button className="text-black bg-white rounded-full h-fit w-fit mx-2 cursor-pointer" onClick={handleNextPage} disabled={page === totalPages}><ChevronRight size={24} /></button>
+        {/* Pagination Controls */}
+        <div className="flex justify-center sm:justify-end mb-4 gap-2">
+          <button 
+            className="text-black bg-white rounded-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-gray-200 transition" 
+            onClick={handlePrevPage} 
+            disabled={page === 1}
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <div className="flex items-center px-4 py-1 bg-gray-800 rounded-full text-white font-medium">
+            <span className="text-sm">{page} / {totalPages}</span>
           </div>
-        <div className=" md:block overflow-x-auto bg-gray-800/50 rounded overflow-y-auto max-h-[58vh]">
+          <button 
+            className="text-black bg-white rounded-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-gray-200 transition" 
+            onClick={handleNextPage} 
+            disabled={page === totalPages}
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="block md:hidden space-y-4">
+          {(workoutHistory?.length > 0) ? workoutHistory.map((item) => (
+            <div 
+              key={item.id} 
+              className="bg-gray-800/50 rounded-lg p-4 border border-gray-700 hover:bg-gray-800/70 transition"
+            >
+              {editingId === item.id ? (
+                // Edit Mode for Mobile
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs text-gray-400 block mb-1">Workout Name</label>
+                    <input 
+                      onChange={handleChange} 
+                      type="text" 
+                      name="workoutName" 
+                      value={editableData.workoutName} 
+                      className="w-full bg-gray-900 border-2 border-gray-600 rounded p-2 text-white text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-400 block mb-1">Exercise</label>
+                    <input 
+                      onChange={handleChange} 
+                      type="text" 
+                      name="exerciseName" 
+                      value={editableData.exerciseName} 
+                      className="w-full bg-gray-900 border-2 border-gray-600 rounded p-2 text-white text-sm"
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">Sets</label>
+                      <input 
+                        onChange={handleChange} 
+                        type="number" 
+                        name="sets" 
+                        value={editableData.sets} 
+                        className="w-full bg-gray-900 border-2 border-gray-600 rounded p-2 text-white text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">Reps</label>
+                      <input 
+                        onChange={handleChange} 
+                        type="number" 
+                        name="reps" 
+                        value={editableData.reps} 
+                        className="w-full bg-gray-900 border-2 border-gray-600 rounded p-2 text-white text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">Weight</label>
+                      <input 
+                        onChange={handleChange} 
+                        type="number" 
+                        name="maxWeight" 
+                        value={editableData.maxWeight} 
+                        className="w-full bg-gray-900 border-2 border-gray-600 rounded p-2 text-white text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <button 
+                      onClick={handleSaveData} 
+                      className="flex-1 bg-green-500 text-black font-semibold py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-green-600 transition"
+                    >
+                      <Save className="w-4 h-4" /> Save
+                    </button>
+                    <button 
+                      onClick={() => {setEditableData(null); setEditingId(null)}} 
+                      className="flex-1 bg-blue-400 text-white font-semibold py-2 px-4 rounded hover:bg-blue-500 transition"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                // View Mode for Mobile
+                <div>
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1">
+                      <h3 className="text-white font-semibold text-lg mb-1">{item.workout_name}</h3>
+                      <p className="text-emerald-400 text-sm">{item.exercise_name}</p>
+                    </div>
+                    <span className="text-gray-400 text-xs">{new Date(item.workout_date).toLocaleDateString()}</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-3 mb-3 bg-gray-900/50 rounded p-3">
+                    <div className="text-center">
+                      <p className="text-gray-400 text-xs mb-1">Sets</p>
+                      <p className="text-white font-bold text-lg">{item.sets}</p>
+                    </div>
+                    <div className="text-center border-x border-gray-700">
+                      <p className="text-gray-400 text-xs mb-1">Reps</p>
+                      <p className="text-white font-bold text-lg">{item.reps}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-400 text-xs mb-1">Weight (Kg)</p>
+                      <p className="text-white font-bold text-lg">{item.weight}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={(e) => {setIsEditing(!isEditing); handleEditWorkoutRow(e, item)}} 
+                      className="flex-1 bg-gray-700 text-white py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-gray-600 transition"
+                    >
+                      <FaEdit /> Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDelete(item.id)} 
+                      className="flex-1 bg-red-900/50 text-red-200 py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-red-900/70 transition"
+                    >
+                      <Trash2 className="w-4 h-4" /> Delete
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )) : (
+            <div className="text-center py-12 text-gray-400">
+              <p>No workout history found</p>
+            </div>
+          )}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto bg-gray-800/50 rounded overflow-y-auto max-h-[58vh]">
           <table className="min-w-full divide-y divide-gray-700">
             <thead>
               <tr className="bg-gray-900/50">
@@ -148,14 +291,14 @@ const WorkoutHistory = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
-              {( workoutHistory?.length > 0) ? workoutHistory.map((item) => (
+              {(workoutHistory?.length > 0) ? workoutHistory.map((item) => (
                 <tr key={item.id} className={`hover:bg-gray-700/50 transition`}>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="workoutName" value = {editingId !== item.id ? item.workout_name : editableData.workout_name } className={`${item.id} bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="workoutName" value = {editingId !== item.id ? item.workout_name : editableData.workoutName } className={`${item.id} bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><span name="workout_date" className="bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis">{new Date(item.workout_date).toLocaleDateString()}</span></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="exerciseName" value = {editingId !== item.id ? item.exercise_name:editableData.exercise_name} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="text" name="exerciseName" value = {editingId !== item.id ? item.exercise_name:editableData.exerciseName} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="sets" value = {editingId !== item.id ? item.sets:editableData.sets} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="reps" value = {editingId !== item.id ? item.reps:editableData.reps} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
-                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="maxWeight" value = {editingId !== item.id ? item.weight:editableData.weight} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
+                  <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap"><input onChange={handleChange} type="number" name="maxWeight" value = {editingId !== item.id ? item.weight:editableData.maxWeight} className={`bg-transparent w-full max-w-[150px] overflow-hidden text-ellipsis ${editingId === item.id ? 'border-2 border-[rgba(255,255,255,0.4)] p-1':""}`} disabled = {editingId !== item.id}/></td>
                   <td className="px-4 lg:px-6 py-4 text-sm text-gray-300 whitespace-nowrap">
                     <div className="flex space-x-2">
                       {
@@ -176,7 +319,6 @@ const WorkoutHistory = () => {
             </tbody>
           </table>
         </div>
-            </div>
       </main>
     </div>
     <Footer/>
