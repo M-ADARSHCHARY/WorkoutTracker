@@ -6,6 +6,7 @@ import InputForm from './InputForm'
 import WorkoutChart from './WorkoutChart'
 import {Link} from 'react-router-dom'
 
+
 const HomePage = () => {
   const { userProfile } = useSelector(state => state.userReducer)
   const {exercisesDid,recentWorkouts,totalSessions} = useSelector(state => state.workoutReducer) 
@@ -65,6 +66,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   )

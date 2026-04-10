@@ -13,6 +13,7 @@
             newObject[key] = addedWorkout[key];
         }
     }
+    
     return newObject;
 }
 

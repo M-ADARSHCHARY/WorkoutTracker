@@ -1,3 +1,9 @@
+CREATE DATABASE IF NOT EXISTS workouttracker;
+USE workouttracker;
+
+DROP TABLE IF EXISTS workouts;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
   id CHAR(36) PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
